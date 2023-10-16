@@ -14,3 +14,8 @@ if vim.g.loaded_ansible_vault == 1 then
 end
 vim.g.loaded_ansible_vault = 1
 
+
+api.nvim_create_user_command(
+  "AnsibleVaultDecrypt",
+  {desc = 'decrypt ansible vault'}
+)
