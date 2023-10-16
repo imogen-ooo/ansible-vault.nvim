@@ -7,10 +7,16 @@ local M = {}
 M.get_vault_ids = function(cfg_path)
   local cfg = io.open(cfg_path, "r")
   local vault_ids = {}
-  for line in cfg:lines() do
-    if line:match("vault_identity_list") then
-      local vault_identity_list = util.split(line, '=')
-      vault_ids = util.split(vault_identity_list[2], ',')
+  if cfg == nil then
+    print('cfg invalid, please check cfg_path')
+  else
+    for line in cfg:lines() do
+      if line:match("vault_identity_list") then
+        if not line:match('#') then
+          local vault_identity_list = util.split(line, '=')
+          vault_ids = util.split(vault_identity_list[2], ',')
+        end
+      end
     end
   end
   io.close(cfg)
