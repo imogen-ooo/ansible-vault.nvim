@@ -1,5 +1,7 @@
 -- main decrypt file
 local decrypt = require("ansible_vault.decrypt")
+local CfgParser = require("ansible_vault.util.cfg_parser")
+local util = require('ansible_vault.util.util')
 
 local home_folder_path = vim.fn.expand('$HOME')
 ---@class Config
@@ -7,6 +9,9 @@ local home_folder_path = vim.fn.expand('$HOME')
 local config = {
   vault_ids = { "${home_folder_path}/.vault_password", }
 }
+local cwd = vim.fn.getcwd()
+local cfg_path = string.format("%s/ansible.cfg", cwd)
+local vault_ids = CfgParser.get_vault_ids(cfg_path)
 
 ---@class MyModule
 local M = {}
